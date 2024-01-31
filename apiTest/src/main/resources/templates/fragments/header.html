@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="httP://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!--    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"-->
+<header th:fragment="header">
+    <div id="header-container">
+        <h2>영화 api 테스트</h2>
+    </div>
+    <!-- https://getbootstrap.com/docs/4.0/components/navbar/ -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo-spring.png}" alt="스프링로고" width="50px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/movie/api1.do}">진흥위원회 api</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/movie/api2.do}">kmdb api</a></li>
+            </ul>
+            </th:block>
+        </div>
+    </nav>
+</header>
+</html>

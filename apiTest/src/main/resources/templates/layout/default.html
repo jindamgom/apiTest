@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!--
+    th:block 렌더링되는 태그 없이 그룹핑 수행
+    th:insert fragment태그 포함해서 자식태그 가져온다
+    th:include fragment태그 제외하고 자식태그 가져온다
+    -->
+<!--   아래 블럭 부분 오타.. block인데 bolck으로 씀.
+        그리고 th:include인데 th::include로 쓰니 전혀 먹히지 않는다..허허..........
+        -->
+    <th:block th:include="~{fragments/head::head}"></th:block>
+    <!--
+        $LAYOUT_TITLE 앱 제목
+        $CONTENT_TITLE 페이지 제목(개별)
+        -->
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">Hello Spring :)</title>
+    <style layout:fragment="style"></style>
+    <!--
+        -재사용 fragment
+            -head th:fragment ->th:include
+            -header th:fragment-> th:include
+            -footer th:fragment-> th:include
+        -페이지별 fragment
+            -style layout:fragment->layout:fragment
+            -content layout:fragment->layout:fragment
+            -script layout:fragment->layout:fragment
+    -->
+</head>
+<body>
+<div id="container">
+    <header th:include="~{fragments/header::header}"></header>
+    <section id="content">
+        <div layout:fragment="content"></div>
+    </section>
+    <footer th:include="~{fragments/footer::footer}"></footer>
+</div>
+<script layout:fragment="script"></script>
+</body>
+</html>

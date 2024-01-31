@@ -1,0 +1,32 @@
+server:
+  port: 9999
+  servlet:
+    context-path: /apiTest
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: spring
+    password: spring
+
+  jpa:
+    generate-ddl: true
+    show-sql: true #???? ??? ??????? true or false
+    properties:
+      hibernate:
+        format_sql: true #false?? ? ?? ??
+        hbm2ddl:
+          #create:entity? ??? ?? ???? ??????? member table? ?????????..
+          auto: create #ddl ???? (?????:create,create-drop/???:update/???:validate
+    database: oracle
+    database-platform: org.hibernate.dialect.OracleDialect
+#logback(logging)
+logging:
+  level:
+    root: info
+    com.sh.app: debug
+
+#api ?? ??
+public-data:
+  base-url1: http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
+  service-key1: 90bc8a33f4d1b7cd06b1fbb20b7edd54

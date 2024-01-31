@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>실시간 대기오염 정보</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<script>
+    const contextPath = `[[@{/}]]`;
+</script>
+<body>
+<h2>api test</h2>
+지역 :
+<select id="location">
+    <option>진흥위원회(박스오피스)</option>
+    <option>kmdb(상세)</option>
+</select> <!-- 내용이 많아 3개만 option 지정 -->
+<input id="input-date" type="text"/>
+<button id="btn1">실행</button>
+<br><br>
+<table id="result1" border="1">
+    <thead>
+    <tr>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script>
+
+
+    $(function () {
+        $("#btn1").click(function ()
+        {
+            //내가 선택한 select 값 부터 확인하기[지역명]
+            let loc = document.getElementById('location');
+            let locValue = (loc.options[loc.selectedIndex].value);
+            let targetDt = document.getElementById("input-date").value;
+            //alert(locValue);
+            console.log(locValue);
+
+            $.ajax({
+                //url: "air.do",
+                url : `${contextPath}movie/api1.do`,
+                data: {
+                    targetDt: targetDt
+                },
+                success: function (data)
+                {
+                    console.log(data);
+                    $("#result1 tbody").innerHTML="";
+                    const itemArr = data.response.body.items;
+                    let value = "";
+                    for (let i in itemArr)
+                    {
+                        // const[] =itemArr[i]
+                        console.log("배열값:",itemArr[i]);
+                        const{stationName,dataTime,khaiValue,pm10Value,coValue,no2Value,so2Value,o3Value} = itemArr[i];
+                        console.log("결과:"+stationName,dataTime,khaiValue,pm10Value,coValue,no2Value,so2Value,o3Value);
+
+                        value += `
+                        <tr>
+                        <td>${stationName}</td>
+                        <td>${dataTime}</td>
+                        <td>${khaiValue}</td>
+                        <td>${pm10Value}</td>
+                        <td>${coValue}</td>
+                        <td>${no2Value}</td>
+                        <td>${so2Value}</td>
+                        <td>${o3Value}</td>
+                        </tr>`;
+                    }
+
+                    $("#result1 tbody").html(value);
+                },
+                error : function (data)
+                {
+                    console.log("fail.................");
+                    console.log(data);
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>
